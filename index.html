@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="imagex/png" href="icon2.png">
     <link rel="stylesheet" href="style.css">
     <title>Calculadora de imc</title>
 </head>
@@ -11,29 +12,29 @@
     <form action="https://sheetdb.io/api/v1/2016e86crfwk0" method="POST" id="form">
         <div class="box">
             <span class="alert nome"></span>
-            <input type="text" id="nome" name="data[Nome]" placeholder="Nome">
+            <input type="text" id="nome" name="data[Nome]" placeholder="Nome" required>
             <div class="underline"></div>
         </div>
         <div class="box">
             <span class="alert idade"></span>
-            <input type="number" id="idade" name="data[Idade]" placeholder="Idade">
+            <input type="number" id="idade" name="data[Idade]" placeholder="Idade" required min="18">
             <div class="underline"></div>
         </div>
         <div class="box">
             <span class="alert peso"></span>
-            <input type="number" id="peso" name="data[Peso]" placeholder="Peso">
+            <input type="number" id="peso" name="data[Peso]" placeholder="Peso" required>
             <div class="underline"></div>
         </div>
         
         <div class="box">
             <span class="alert altura"></span>
-            <input type="number" id="altura" name="data[Altura]" placeholder="Altura">   
+            <input type="number" id="altura" name="data[Altura]" placeholder="Altura" required>   
             <div class="underline"></div>
         </div>
 
         <div class="box">
             <span class="alert sexo"></span>
-            <select name="data[Sexo]" id="sexo">
+            <select name="data[Sexo]" id="sexo" required>
                 <option value="sexo" selected disabled>Seu sexo</option>
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>
@@ -43,7 +44,6 @@
         <div class="box">
             <button id="btn" onclick="botao()">Enviar</button>
         </div>
-
     </form>
     <script src="script.js"></script>
 </body>

@@ -1,49 +1,75 @@
-let nome = document.querySelector('#nome').value
-let idade = document.querySelector('#idade').value
-let peso = document.querySelector('#peso').value
-let altura = document.querySelector('#altura').value
-let sexo = document.querySelector('#sexo').value
+const fields = document.querySelectorAll("[required]")
+
+function ValidateField(field){
+    function verifyErrors(){
+        let foundError = false;
+
+        for(let error in field.validity){
+            if(field.validity[error] && !field.validity.valid){
+                foundError = error
+            }
+        }
+        return foundError;
+    }
+    console.log(field.validity)
+    function customMessage(typeError){
+        const messages ={
+            text: {
+                valueMissing: "Campo obrigatório!"
+            },
+            number: {
+                valueMissing: "Campo obrigatório!",
+                rangeUnderflow: "Você precisa ter no mínimo 18 anos!"
+            }
+        }
+        return messages[field.type][typeError] 
+
+    }
+
+    function setCustomMessage(message){
+        const spanAlert = field.parentNode.querySelector("span.alert")
+        if(message){
+            spanAlert.innerHTML = message
+        } else{
+            spanAlert.innerHTML = ""
+        }
 
 
+        
+    }
 
-function botao(){
-    if(nome == null){
-        document.getElementById('btn').disabled = true
-        document.querySelector('.nome').innerHTML = 'Coloque um nome!'
-    } else{
-        document.getElementById('btn').disabled = false
-        document.querySelector('.nome').innerHTML = ''
+    return function(){
+
+        const error = verifyErrors()
+
+        if(error){
+            const message = customMessage(error)
+            setCustomMessage(message)
+        }else{
+            setCustomMessage()
+        }
     }
-    
-    if(idade == null && idade < 18){
-        document.getElementById('btn').disabled = true
-        document.querySelector('.idade').innerHTML = 'Coloque uma idade!'
-    } else{
-        document.getElementById('btn').disabled = false
-        document.querySelector('.idade').innerHTML = ''
-    }
-    
-    if(peso == null){
-        document.getElementById('btn').disabled = true
-        document.querySelector('.peso').innerHTML = 'Coloque um peso!'
-    } else{
-        document.getElementById('btn').disabled = false
-        document.querySelector('.peso').innerHTML = ''
-    }
-    
-    if(altura == null){
-        document.getElementById('btn').disabled = true
-        document.querySelector('.altura').innerHTML = 'Coloque um altura!'
-    } else{
-        document.getElementById('btn').disabled = false
-        document.querySelector('.altura').innerHTML = ''
-    }
-    
-    if(sexo == Masculino || sexo == Feminino){
-        document.getElementById('btn').disabled = true
-        document.querySelector('.sexo').innerHTML = 'Escolha um sexo!'
-    } else{
-        document.getElementById('btn').disabled = false
-        document.querySelector('.sexo').innerHTML = ''
-    }
+
+
 }
+
+
+function customValidation(event){
+
+    
+
+    const field = event.target
+    const validation = ValidateField(field)
+    validation()
+
+}
+
+for (field of fields){
+    field.addEventListener("invalid", event =>{
+        event.preventDefault()
+        customValidation(event)
+    })
+    field.addEventListener("blur", customValidation)
+}
+
+
